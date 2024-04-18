@@ -83,6 +83,10 @@ class NMT(nn.Module):
         ###     Conv1D Layer:
         ###         https://pytorch.org/docs/stable/generated/torch.nn.Conv1d.html
 
+        self.post_embed_cnn = nn.Conv1d(embed_size, embed_size, kernel_size=2, padding='same')
+        self.encoder = nn.LSTM(embed_size, hidden_size, num_layers=2, bias=True, bidirectional=True)
+        self.decoder = nn.LSTMCell(embed_size, hidden_size*2, bias=True)
+        self.h_projection = 
         ### END YOUR CODE
 
     def forward(self, source: List[List[str]], target: List[List[str]]) -> torch.Tensor:
